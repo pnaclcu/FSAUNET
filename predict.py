@@ -17,7 +17,7 @@ import cv2
 def acquire_all_img(temp_path, temp_list):
     full_img_path = []
     full_mask_path = []
-    full_con_path = []
+
     for patient in temp_list:
         mask_path = os.path.join(temp_path, patient, 'mask')
         all_mask = os.listdir(mask_path)
@@ -147,7 +147,7 @@ if __name__ == "__main__":
                     if base_dir == '../CAMUS':
                         abs_path = ckpt_path.replace('CAMUS', 'CAMUS_perdiction')
                         abs_path_mask=os.path.join(abs_path,'mask')
-                        abs_path_con=os.path.join(abs_path,'con')
+
 
                     if base_dir == '../DYNAMIC':
                         abs_path = ckpt_path.replace('DYNAMIC', 'DYNAMIC_perdiction')
