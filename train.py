@@ -24,7 +24,7 @@ from copy import  deepcopy
 def acquire_all_img(temp_path,temp_list):
     full_img_path=[]
     full_mask_path=[]
-    full_con_path=[]
+
     for patient in temp_list:
 
         mask_path=os.path.join(temp_path,patient,'mask')
@@ -88,7 +88,7 @@ def train_net(base_dir,net,
 
     #optimizer = optim.RMSprop(net.parameters(), lr=lr, weight_decay=1e-8, momentum=0.9)
     optimizer = torch.optim.AdamW(net.parameters(), lr=lr, betas=(0.9, 0.999), eps=1e-8,amsgrad=True)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min' if net.n_classes > 1 else 'max', factor=0.2,patience=40,verbose=True,min_lr=1e-7,cooldown=20)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.2,patience=10,verbose=True,min_lr=1e-7,cooldown=20)
     if net.n_classes > 1:
         criterion = nn.CrossEntropyLoss()
     else:
@@ -126,13 +126,14 @@ def train_net(base_dir,net,
 
                 pbar.update(imgs.shape[0])
                 global_step += 1
+                
 
 
 
 
         if save_cp:
-            val_score_mask = eval_net(net, val_loader, device)
-            scheduler.step(val_score_mask)
+
+            scheduler.step(epoch_loss)
             print('Time :{},epoch:{},Net:{},LR:{},Validation_score:{}'.format(
                 time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), epoch, net.name,
                 str(float(optimizer.param_groups[0]['lr'])), str(str(val_score_mask))))
