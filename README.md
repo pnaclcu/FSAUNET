@@ -1,8 +1,11 @@
 # Pytorch Implement for Full-spectrum attention U-Net 
 ## Repo architecture
 unet/unet_parts.py and unet_model.py include the U-Net model.
+
 unet/full_freq_att.py includes the proposed full-spectrum model.
+
 utils/dataset.py is used to process dataloader.
+
 dice_loss.py is used to compute the dice scores.
 
 plz see the details in the following introduction.
