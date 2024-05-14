@@ -74,7 +74,6 @@ def train_net(base_dir,net,
     n_train, n_val = len(train_dataset), len(test_dataset)
 
     global_step = 0
-    best_score = 0
     logging.info(f'''Starting training:
         Epochs:          {epochs}
         Batch size:      {batch_size}
